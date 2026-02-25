@@ -6,18 +6,18 @@ import json
 
 
 # Создание логера для модуля utils
-logger_utils = logging.getLogger('utils')
+logger_utils = logging.getLogger("utils")
 logger_utils.setLevel(logging.DEBUG)
 
 # Определение пути к директории logs
-log_dir = Path(__file__).parent.parent / 'logs'
+log_dir = Path(__file__).parent.parent / "logs"
 os.makedirs(log_dir, exist_ok=True)
 
 # Форматтер сообщений лога
-formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 
 # Обработчик файла для log-потоков
-file_handler = logging.FileHandler(os.path.join(log_dir, 'utils.log'), mode='w')
+file_handler = logging.FileHandler(os.path.join(log_dir, "utils.log"), mode="w")
 file_handler.setFormatter(formatter)
 
 # Добавляем хэндлер в логгер
@@ -33,17 +33,17 @@ def read_json_file(file_path: str) -> Union[List[Dict], List]:
     :type file_path: str
     :rtype: list
     """
-    logger_utils.debug(f'Чтение файла {file_path}')
+    logger_utils.debug(f"Чтение файла {file_path}")
     try:
-        with open(file_path, 'r', encoding='utf-8') as f:
+        with open(file_path, "r", encoding="utf-8") as f:
             transactions = json.load(f)
 
         # Проверяем, что данные представляют собой список
         if isinstance(transactions, list):
-            logger_utils.info(f'Файл успешно прочитан, количество транзакций: {len(transactions)}')
+            logger_utils.info(f"Файл успешно прочитан, количество транзакций: {len(transactions)}")
             return transactions
         else:
-            logger_utils.error('Ошибка формата данных: ожидается список транзакций.')
+            logger_utils.error("Ошибка формата данных: ожидается список транзакций.")
             return []
 
     except FileNotFoundError:

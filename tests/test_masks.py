@@ -9,8 +9,9 @@ invalid_card_numbers = ["12345678912345", "abcde"]
 valid_accounts = ["123456789012", "987654321098"]
 invalid_accounts = ["12345678901", "abcdef"]
 
+
 @pytest.mark.parametrize(
-     "card_number,expected_result",
+    "card_number,expected_result",
     [
         ("1234567890123456", "1234 56** **** 3456"),
         ("9876543210987654", "9876 54** **** 7654"),
@@ -19,7 +20,6 @@ invalid_accounts = ["12345678901", "abcdef"]
 )
 def test_get_mask_card_number(card_number, expected_result):
     assert get_mask_card_number(int(card_number)) == expected_result
-
 
 
 def test_get_mask_card_number(valid_card_numbers):
@@ -59,6 +59,7 @@ def test_mask_account_valid(valid_card_numbers, valid_accounts):
         elif input_data.startswith("счет"):
             result = get_mask_account(input_data.split()[1])
         assert result == expected_result
+
 
 # ТЕСТЫ НА ОБРАБОТКУ НЕВЕРНЫХ ДАТ
 def test_get_date_invalid(bad_iso_dates):

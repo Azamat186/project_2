@@ -11,7 +11,7 @@ def read_csv_transactions(file_path: str) -> List[Dict]:
     :return: Список словарей с операциями
     """
     df = pd.read_csv(file_path)
-    return df.to_dict('records')
+    return df.to_dict("records")
 
 
 def read_excel_transactions(file_path: str) -> List[Dict]:
@@ -23,4 +23,4 @@ def read_excel_transactions(file_path: str) -> List[Dict]:
     :return: Список словарей с операциями
     """
     df = pd.read_excel(file_path)
-    return df.to_dict('records')
+    return df.to_dict("records")

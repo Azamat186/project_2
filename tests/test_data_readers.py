@@ -21,6 +21,7 @@ def csv_file():
 def excel_file():
     """Возвращает временный Excel файл"""
     from io import BytesIO
+
     output = BytesIO()
     df = pd.DataFrame({"id": [1], "date": ["2023-01-01"], "amount": [100]})
     df.to_excel(output, index=False)

@@ -7,7 +7,7 @@ def transactions():
     return [
         {"id": 1, "state": "done", "date": "2023-01-01"},
         {"id": 2, "state": "pending", "date": "2023-01-02"},
-        {"id": 3, "state": "canceled", "date": "2023-01-03"}
+        {"id": 3, "state": "canceled", "date": "2023-01-03"},
     ]
 
 
@@ -20,7 +20,7 @@ def filter_by_state(transactions, state):
 
 
 def sort_by_date(transactions, reverse=False):
-    sorted_transactions = sorted(transactions, key=lambda x: datetime.strptime(x['date'], '%Y-%m-%d'), reverse=reverse)
+    sorted_transactions = sorted(transactions, key=lambda x: datetime.strptime(x["date"], "%Y-%m-%d"), reverse=reverse)
     return sorted_transactions
 
 
@@ -42,5 +42,5 @@ def test_sort_by_date(transactions):
     ascending_sorted = sort_by_date(transactions)
     descending_sorted = sort_by_date(transactions, reverse=True)
 
-    assert ascending_sorted[0]['id'] == 1
-    assert descending_sorted[0]['id'] == 3
+    assert ascending_sorted[0]["id"] == 1
+    assert descending_sorted[0]["id"] == 3

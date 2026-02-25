@@ -18,13 +18,14 @@ def test_log_to_console_success(capsys):  # Здесь capsys берётся и�
 
 def test_log_to_file_success(tmp_path):
     temp_file = tmp_path / "test.log"
+
     @log(str(temp_file))
     def multiply(a, b):
         """Multiply two numbers."""
         return a * b
 
     multiply(3, 4)
-    with open(temp_file, 'r') as f:
+    with open(temp_file, "r") as f:
         content = f.read().strip()
     expected_output = "multiply: 12"
     assert content == expected_output
@@ -46,6 +47,7 @@ def test_log_to_console_error(capsys):  # И здесь capsys берется и
 
 def test_log_to_file_error(tmp_path):
     temp_file = tmp_path / "test.log"
+
     @log(str(temp_file))
     def subtract(a, b):
         """Subtract one number from another."""
@@ -55,7 +57,7 @@ def test_log_to_file_error(tmp_path):
 
     with pytest.raises(ValueError):
         subtract(5, 3)
-    with open(temp_file, 'r') as f:
+    with open(temp_file, "r") as f:
         content = f.read().strip()
     expected_output = "subtract error: ValueError. Inputs: (5, 3), {}"
     assert content == expected_output
