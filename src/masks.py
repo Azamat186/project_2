@@ -1,8 +1,10 @@
 import logging
 import os
+import re
+
 from pathlib import Path
 from typing import Union
-import re
+
 
 # Создаем логгер для модуля masks
 logger_masks = logging.getLogger("masks")

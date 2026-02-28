@@ -1,9 +1,10 @@
 import os
+
 from unittest.mock import MagicMock, patch
-from pathlib import Path
-from typing import List, Dict
-import pytest
+
 import pandas as pd  # Не забудьте добавить импорт pandas
+import pytest
+
 from src.data_readers import read_csv_transactions, read_excel_transactions
 
 

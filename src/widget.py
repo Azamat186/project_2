@@ -1,5 +1,5 @@
-from typing import Union
 from datetime import datetime
+from typing import Union
 
 
 def get_mask_card_number(card_number: int) -> str:

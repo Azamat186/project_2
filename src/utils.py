@@ -1,8 +1,9 @@
+import json
 import logging
 import os
+
 from pathlib import Path
-from typing import Union, List, Dict
-import json
+from typing import Dict, List, Union
 
 
 # Создание логера для модуля utils

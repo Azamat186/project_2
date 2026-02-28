@@ -1,6 +1,6 @@
 # tests/test_processing.py
 
-from src.processings import sort_by_date, datetime
+from src.processings import datetime, sort_by_date
 
 
 def transactions():

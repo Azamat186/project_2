@@ -1,6 +1,8 @@
 import os
-import requests
+
 from typing import Dict, Optional
+
+import requests
 
 
 def convert_to_rubles(transaction: Dict[str, any]) -> Optional[float]:
