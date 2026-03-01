@@ -1,12 +1,12 @@
 import csv
 import json
 import re
-
 from datetime import datetime
-
 import pandas as pd
+from collections import Counter
 
 
+# Функции загрузки данных из различных источников
 def load_json(filename="transactions.json"):
     """Загрузка данных из JSON"""
     try:
@@ -29,14 +29,16 @@ def load_csv(filename="transactions.csv"):
 
 
 def load_xlsx(filename="transactions.xlsx"):
+    """Загрузка данных из XLSX"""
     try:
-        df = pd.read_excel(filename, engine='openpyxl')  # Добавляем аргумент engine
+        df = pd.read_excel(filename, engine='openpyxl')
         return df.to_dict('records')
     except FileNotFoundError:
         print(f"Файл {filename} не найден!")
         return []
 
 
+# Основные рабочие функции
 def sort_by_date(transactions):
     """Сортирует транзакции по дате в порядке возрастания."""
     sorted_transactions = sorted(
@@ -99,18 +101,16 @@ def search_by_keyword(transactions, keyword):
 
 def count_operations_by_category(transactions):
     """
-    Подсчитывает количество операций по каждой категории.
+    Подсчитывает количество операций по каждой категории с использованием Counter.
 
     :param transactions: Список транзакций
     :return: Словарь с категориями и количеством операций
     """
-    categories_count = {}
-    for trans in transactions:
-        category = trans.get('category', 'Без категории')
-        categories_count[category] = categories_count.get(category, 0) + 1
-    return categories_count
+    categories = [trans.get('category', 'Без категории') for trans in transactions]
+    return dict(Counter(categories))
 
 
+# Основной рабочий цикл программы
 def main():
     print("Привет! Добро пожаловать в программу работы с банковскими транзакциями.")
 
@@ -128,7 +128,7 @@ def main():
 
         break
 
-    # Выбираем нужную функцию загрузки файлов в зависимости от выбора пользователя
+    # Выбор нужной функции загрузки файлов в зависимости от выбора пользователя
     file_loaders = {
         '1': load_json,
         '2': load_csv,
@@ -158,12 +158,12 @@ def main():
         else:
             print(f"Статус '{status_input}' недоступен.")
 
-    # Проверяем наличие хотя бы одной транзакции
+    # Проверка наличия хотя бы одной транзакции
     if len(filtered_transactions) > 0:
         # Дополнительные фильтры и сортировка
         need_sorting = input("Отсортировать операции по дате? Да/Нет: ").strip().lower()
         if need_sorting.startswith('д') or need_sorting.startswith('y'):
-            sort_order = input("Отсортировать по возрастнию или по убыванию? (возрастание/убывание): ").strip().lower()
+            sort_order = input("Отсортировать по возрастанию или по убыванию? (возрастание/убывание): ").strip().lower()
             if sort_order.startswith('у') or sort_order.startswith('d'):  # Убывание
                 filtered_transactions.sort(key=lambda x: datetime.strptime(x['date'], '%d.%m.%Y'), reverse=True)
             else:  # Возрастание
@@ -188,27 +188,30 @@ def main():
     else:
         print("Не найдено ни одной транзакции с указанным вами статусом.")
 
+    # Дополнительные возможности
+    while True:
+        print("\nДополнительные возможности:")
+        print("1. Найти транзакции по ключевым словам")
+        print("2. Посмотреть распределение операций по категориям")
+        action_choice = input("Ваш выбор: ").strip()
 
-while True:
-    print("\nДополнительные возможности:")
-    print("1. Найти транзакции по ключевым словам")
-    print("2. Посмотреть распределение операций по категориям")
-    action_choice = input("Ваш выбор: ").strip()
+        if action_choice == '1':
+            keyword = input("Введите ключевое слово для поиска: ")
+            found_transactions = search_by_keyword(filtered_transactions, keyword)
+            if len(found_transactions) > 0:
+                print(f"\nНайдено {len(found_transactions)} транзакций по запросу '{keyword}'.")
+                display_transactions(found_transactions)
+            else:
+                print(f"Ничего не найдено по вашему запросу '{keyword}'.")
 
-    if action_choice == '1':
-        keyword = input("Введите слово для поиска: ")
-        result = search_by_keyword(filtered_transactions, keyword)
-        display_transactions(result)
+        elif action_choice == '2':
+            category_counts = count_operations_by_category(filtered_transactions)
+            print("\nКатегории и количество операций:\n")
+            for cat, count in category_counts.items():
+                print(f"- Категория: {cat}, Количество: {count}")
 
-    elif action_choice == '2':
-        categories_count = count_operations_by_category(filtered_transactions)
-        print("\nКатегории и количество операций:\n")
-        for cat, count in categories_count.items():
-            print(f"- Категория: {cat}, Количество: {count}")
-
-    else:
-        print("Завершение работы.")
-        break
+        else:
+            print("Неправильный ввод. Повторите попытку.")
 
 
 if __name__ == "__main__":

@@ -1,6 +1,6 @@
-2026-03-01 16:40:17,956 - utils - DEBUG - Чтение файла some/path/to/file.json
-2026-03-01 16:40:17,956 - utils - INFO - Файл успешно прочитан, количество транзакций: 2
-2026-03-01 16:40:17,957 - utils - DEBUG - Чтение файла nonexistent_file.json
-2026-03-01 16:40:17,957 - utils - ERROR - Ошибка: файл "nonexistent_file.json" не найден.
-2026-03-01 16:40:17,959 - utils - DEBUG - Чтение файла invalid.json
-2026-03-01 16:40:17,959 - utils - ERROR - Ошибка: файл "invalid.json" не найден.
+2026-03-01 20:42:58,647 - utils - DEBUG - Чтение файла some/path/to/file.json
+2026-03-01 20:42:58,647 - utils - INFO - Файл успешно прочитан, количество транзакций: 2
+2026-03-01 20:42:58,649 - utils - DEBUG - Чтение файла nonexistent_file.json
+2026-03-01 20:42:58,649 - utils - ERROR - Ошибка: файл "nonexistent_file.json" не найден.
+2026-03-01 20:42:58,651 - utils - DEBUG - Чтение файла invalid.json
+2026-03-01 20:42:58,651 - utils - ERROR - Ошибка: файл "invalid.json" не найден.
