@@ -66,7 +66,7 @@ data = [
     {'name': 'David', 'age': 28, 'city': 'Paris', 'salary': 55000},
     {'name': 'Eve', 'age': 32, 'city': 'Berlin', 'salary': 62000}
 ]
-
+0
 with open('output/output_csv.csv', mode='w', encoding='utf-8', newline='') as file:
     writer = csv.DictWriter(file, fieldnames=['name', 'age', 'city', 'salary'])
     writer.writeheader()
