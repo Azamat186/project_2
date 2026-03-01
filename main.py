@@ -1,5 +1,6 @@
 import csv
 import json
+import re
 
 from datetime import datetime
 
@@ -84,6 +85,32 @@ def display_transactions(transactions):
         print(f"   Сумма: {amount} {currency}\n")
 
 
+def search_by_keyword(transactions, keyword):
+    """
+    Фильтрует транзакции по наличию ключевого слова в поле описания.
+
+    :param transactions: Список транзакций
+    :param keyword: Ключевое слово для поиска
+    :return: Отфильтрованный список транзакций
+    """
+    pattern = re.compile(re.escape(keyword), re.IGNORECASE)
+    return [trans for trans in transactions if pattern.search(str(trans.get('description')))]
+
+
+def count_operations_by_category(transactions):
+    """
+    Подсчитывает количество операций по каждой категории.
+
+    :param transactions: Список транзакций
+    :return: Словарь с категориями и количеством операций
+    """
+    categories_count = {}
+    for trans in transactions:
+        category = trans.get('category', 'Без категории')
+        categories_count[category] = categories_count.get(category, 0) + 1
+    return categories_count
+
+
 def main():
     print("Привет! Добро пожаловать в программу работы с банковскими транзакциями.")
 
@@ -160,6 +187,28 @@ def main():
             display_transactions(filtered_transactions)
     else:
         print("Не найдено ни одной транзакции с указанным вами статусом.")
+
+
+while True:
+    print("\nДополнительные возможности:")
+    print("1. Найти транзакции по ключевым словам")
+    print("2. Посмотреть распределение операций по категориям")
+    action_choice = input("Ваш выбор: ").strip()
+
+    if action_choice == '1':
+        keyword = input("Введите слово для поиска: ")
+        result = search_by_keyword(filtered_transactions, keyword)
+        display_transactions(result)
+
+    elif action_choice == '2':
+        categories_count = count_operations_by_category(filtered_transactions)
+        print("\nКатегории и количество операций:\n")
+        for cat, count in categories_count.items():
+            print(f"- Категория: {cat}, Количество: {count}")
+
+    else:
+        print("Завершение работы.")
+        break
 
 
 if __name__ == "__main__":
