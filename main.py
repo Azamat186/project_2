@@ -1,9 +1,11 @@
 import csv
 import json
 import re
-from datetime import datetime
-import pandas as pd
+
 from collections import Counter
+from datetime import datetime
+
+import pandas as pd
 
 
 # Функции загрузки данных из различных источников
