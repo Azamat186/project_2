@@ -1,5 +1,6 @@
 import functools
-from typing import Callable, Any, Optional
+
+from typing import Any, Callable, Optional
 
 
 def log(filename: Optional[str] = None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
@@ -18,16 +19,16 @@ def log(filename: Optional[str] = None) -> Callable[[Callable[..., Any]], Callab
                 result = func(*args, **kwargs)
                 message = f"{func.__name__}: {result}"
                 if filename is not None:
-                    with open(filename, 'a') as file:
-                        file.write(message + '\n')
+                    with open(filename, "a") as file:
+                        file.write(message + "\n")
                 else:
                     print(message)
                 return result
             except Exception as e:
                 error_message = f"{func.__name__} error: {type(e).__name__}. Inputs: {args}, {kwargs}"
                 if filename is not None:
-                    with open(filename, 'a') as file:
-                        file.write(error_message + '\n')
+                    with open(filename, "a") as file:
+                        file.write(error_message + "\n")
                 else:
                     print(error_message)
                 raise
